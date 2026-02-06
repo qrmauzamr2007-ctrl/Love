@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Amiri&display=swap');
 
+/* تنسيق عام */
 * {
   box-sizing: border-box;
 }
@@ -9,7 +10,7 @@ html, body {
   padding: 0;
   font-family: 'Amiri', serif;
   height: 100%;
-  overflow: hidden;
+  overflow: hidden; /* لمنع السكرول في الصفحة كاملة */
   background-color: black;
 }
 
@@ -32,8 +33,10 @@ html, body {
   object-fit: cover;
   top: 0;
   left: 0;
+  z-index: 1;
 }
 
+/* تأثيرات الظهور */
 .fade {
   opacity: 0;
   transform: translateY(15px);
@@ -47,35 +50,34 @@ html, body {
   }
 }
 
-/* --- المستطيل الشفاف في الصفحة الرئيسية --- */
+/* --- المستطيلات الشفافة (Content Box) --- */
 .main-text {
   position: absolute;
   top: 6%;
   right: 5%;
   color: white;
   width: 320px;
-  max-height: 45vh; /* المستطيل واخد جزء من الشاشة */
-  overflow-y: auto; /* ده اللي بيعمل السكرول */
-  background: rgba(0, 0, 0, 0.45); /* شفافية سوداء */
-  backdrop-filter: blur(8px); /* تأثير زجاجي */
+  max-height: 45vh;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
   padding: 20px;
   border-radius: 15px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 18px;
   line-height: 1.6;
   text-align: right;
-  z-index: 2;
+  z-index: 10;
   animation: softFade 2.5s ease forwards;
 }
 
-/* --- المستطيل الشفاف في صفحات الرسائل --- */
 .page-text {
   position: absolute;
   top: 15%;
   right: 5%;
   color: white;
   width: 350px;
-  max-height: 60vh;
+  max-height: 55vh;
   overflow-y: auto;
   background: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(8px);
@@ -84,11 +86,11 @@ html, body {
   border: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 18px;
   line-height: 1.8;
-  z-index: 2;
+  z-index: 10;
   animation: softFade 2.8s ease forwards;
 }
 
-/* تجميل شكل السكرول بار */
+/* تجميل السكرول بار */
 .main-text::-webkit-scrollbar, .page-text::-webkit-scrollbar {
   width: 4px;
 }
@@ -97,27 +99,36 @@ html, body {
   border-radius: 10px;
 }
 
+/* --- قسم الأزرار المتطور --- */
 .buttons {
   position: absolute;
-  bottom: 8%;
-  right: 5%;
+  bottom: 8%; /* مكان الأزرار */
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
-  gap: 13px;
-  z-index: 2;
+  gap: 12px;
+  width: 90%;
+  max-width: 320px;
+  z-index: 20;
 }
 
 .buttons .ghost-btn {
-  padding: 10px 22px;
+  width: 100%;
+  padding: 12px 20px;
   border: 1.5px solid rgba(120, 80, 40, 0.7);
   color: white;
   cursor: pointer;
   border-radius: 30px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
   opacity: 0;
   transform: translateY(10px);
   animation: btnFade 1.5s ease forwards;
-  text-align: center;
-  background: rgba(0,0,0,0.3);
+  transition: 0.3s;
 }
 
 .buttons .ghost-btn:nth-child(1) { animation-delay: 1.2s; }
@@ -128,69 +139,80 @@ html, body {
 }
 
 .ghost-btn:hover {
-  background: rgba(120, 80, 40, 0.3);
-  transform: translateY(-2px);
-  transition: 0.3s;
+  background: rgba(120, 80, 40, 0.4);
+  transform: scale(1.02);
 }
 
+/* زر الرجوع */
 .top-bar {
   position: absolute;
   top: 20px;
   right: 20px;
   color: white;
   cursor: pointer;
-  z-index: 3;
+  z-index: 30;
   font-weight: bold;
+  text-shadow: 1px 1px 5px black;
 }
 
+/* شاشة كلمة السر */
 .password-box {
   position: absolute;
   bottom: 15%;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
-  z-index: 2;
+  z-index: 10;
+  width: 90%;
 }
 
 .password-box input {
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.6);
   border: 1.5px solid rgba(120, 80, 40, 0.7);
   padding: 12px 20px;
   color: white;
   font-size: 17px;
-  width: 260px;
+  width: 100%;
+  max-width: 280px;
   outline: none;
   border-radius: 30px;
+  text-align: center;
 }
 
 .password-box .ghost-btn {
   margin-top: 15px;
-  padding: 10px 22px;
-  border: 1.5px solid rgba(120, 80, 40, 0.7);
-  color: white;
-  cursor: pointer;
   display: inline-block;
-  border-radius: 30px;
+  width: auto;
+  min-width: 120px;
 }
 
-/* --- تعديلات الموبايل --- */
+/* --- تعديلات الموبايل النهائية --- */
 @media screen and (max-width: 600px) {
-  .main-text, .page-text {
+  .main-text {
+    top: 5%;
     width: 90%;
     right: 5%;
-    left: 5%; /* توسيط المستطيل في الموبايل */
-    max-height: 45vh;
+    left: 5%;
+    max-height: 40vh; /* تصغير المساحة لترك مجال للأزرار */
     font-size: 17px;
   }
-  
-  .buttons {
-    bottom: 5%;
-    width: 90%;
-    right: 5%;
+
+  .page-text {
+    top: 10%;
+    width: 92%;
+    right: 4%;
+    left: 4%;
+    max-height: 60vh;
+    font-size: 17px;
   }
-  
+
+  .buttons {
+    bottom: 4%; /* تقريب الأزرار من الأسفل لتفادي التداخل */
+    gap: 10px;
+  }
+
   .buttons .ghost-btn {
     font-size: 15px;
-    padding: 12px;
+    padding: 10px;
   }
   }
